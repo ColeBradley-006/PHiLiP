@@ -36,8 +36,8 @@ end
 # freestream Mach number
 subsection euler
   set reference_length = 1.0
-  set mach_infinity = 0.2
-  set angle_of_attack = 0.0
+  set mach_infinity = 0.5
+  set angle_of_attack = 2.0
   # note: remove this AoA parameter once the airfoil in the mesh is actually 8 degree AoA
 end
 
@@ -51,12 +51,5 @@ subsection flow_solver
   subsection grid
     set input_mesh_filename = ../../../test_runs/test_meshes/naca0012_3D
     set grid_degree = 2
-    subsection gmsh_boundary_IDs
-      set use_periodic_BC_in_x = false
-      set use_periodic_BC_in_y = false
-      set use_periodic_BC_in_z = true
-      set z_periodic_id_face_1 = 2005
-      set z_periodic_id_face_2 = 2006
-    end
   end
 end

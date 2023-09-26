@@ -47,79 +47,65 @@ void CaradonnaTung<dim,nstate>::display_additional_flow_case_specific_parameters
 template <int dim, int nstate>
 std::shared_ptr<Triangulation> CaradonnaTung<dim,nstate>::generate_grid() const
 {
-    //Dummy triangulation
-    if constexpr(dim==2) {
-        std::shared_ptr<Triangulation> grid = std::make_shared<Triangulation>(
-    #if PHILIP_DIM!=1
-                this->mpi_communicator
-    #endif
-        );
-        dealii::GridGenerator::Airfoil::AdditionalData airfoil_data;
-        dealii::GridGenerator::Airfoil::create_triangulation(*grid, airfoil_data);
-        grid->refine_global();
-        return grid;
-    }
-    else if constexpr(dim==3) {
-        std::shared_ptr<HighOrderGrid<dim,double>> caradonna_tung_mesh = nullptr;
-        const std::string mesh_filename = this->all_param.flow_solver_param.input_mesh_filename+std::string(".msh");
-        const bool use_mesh_smoothing = false;
-        const unsigned int grid_degree = 0;
-        // const unsigned int grid_degree = this->all_param.flow_solver_param.grid_degree;
+    std::shared_ptr<HighOrderGrid<dim,double>> caradonna_tung_mesh = nullptr;
+    const std::string mesh_filename = this->all_param.flow_solver_param.input_mesh_filename+std::string(".msh");
+    const bool use_mesh_smoothing = false;
+    const unsigned int grid_degree = 0;
+    // const unsigned int grid_degree = this->all_param.flow_solver_param.grid_degree;
 
-        // Check if periodic BC exist
-        const bool periodic_x = this->all_param.flow_solver_param.use_periodic_BC_in_x;
-        const bool periodic_y = this->all_param.flow_solver_param.use_periodic_BC_in_y;
-        const bool periodic_z = this->all_param.flow_solver_param.use_periodic_BC_in_z;
+    // Check if periodic BC exist
+    const bool periodic_x = this->all_param.flow_solver_param.use_periodic_BC_in_x;
+    const bool periodic_y = this->all_param.flow_solver_param.use_periodic_BC_in_y;
+    const bool periodic_z = this->all_param.flow_solver_param.use_periodic_BC_in_z;
 
-        if (periodic_x || periodic_y || periodic_z) {
-            const bool mesh_reader_verbose_output = true;
+    if (periodic_x || periodic_y || periodic_z) {
+        const bool mesh_reader_verbose_output = true;
 
-            // Default parameters
-            int x_periodic_1_temp = 0; 
-            int x_periodic_2_temp = 0;
-            int y_periodic_1_temp = 0; 
-            int y_periodic_2_temp = 0;
-            int z_periodic_1_temp = 0; 
-            int z_periodic_2_temp = 0;
+        // Default parameters
+        int x_periodic_1_temp = 0; 
+        int x_periodic_2_temp = 0;
+        int y_periodic_1_temp = 0; 
+        int y_periodic_2_temp = 0;
+        int z_periodic_1_temp = 0; 
+        int z_periodic_2_temp = 0;
 
-            if (periodic_x) {
-                x_periodic_1_temp = this->all_param.flow_solver_param.x_periodic_id_face_1;
-                x_periodic_2_temp = this->all_param.flow_solver_param.x_periodic_id_face_2;
-            }
-
-            if (periodic_y) {
-                y_periodic_1_temp = this->all_param.flow_solver_param.y_periodic_id_face_1;
-                y_periodic_2_temp = this->all_param.flow_solver_param.y_periodic_id_face_2;
-            }
-
-            if (periodic_z) {
-                z_periodic_1_temp = this->all_param.flow_solver_param.z_periodic_id_face_1;
-                z_periodic_2_temp = this->all_param.flow_solver_param.z_periodic_id_face_2;
-            }
-
-            // Assign periodic BC
-            const int x_periodic_1 = x_periodic_1_temp; 
-            const int x_periodic_2 = x_periodic_2_temp;
-            const int y_periodic_1 = y_periodic_1_temp; 
-            const int y_periodic_2 = y_periodic_2_temp;
-            const int z_periodic_1 = z_periodic_1_temp; 
-            const int z_periodic_2 = z_periodic_2_temp;
-
-            caradonna_tung_mesh = read_gmsh<dim, dim> (mesh_filename, 
-                                                periodic_x, periodic_y, periodic_z,
-                                                x_periodic_1, x_periodic_2, 
-                                                y_periodic_1, y_periodic_2, 
-                                                z_periodic_1, z_periodic_2, 
-                                                mesh_reader_verbose_output,
-                                                this->all_param.do_renumber_dofs,
-                                                grid_degree, use_mesh_smoothing);
-        } else {
-            caradonna_tung_mesh = read_gmsh<dim, dim> (mesh_filename, this->all_param.do_renumber_dofs, grid_degree, use_mesh_smoothing);
+        if (periodic_x) {
+            x_periodic_1_temp = this->all_param.flow_solver_param.x_periodic_id_face_1;
+            x_periodic_2_temp = this->all_param.flow_solver_param.x_periodic_id_face_2;
         }
 
+        if (periodic_y) {
+            y_periodic_1_temp = this->all_param.flow_solver_param.y_periodic_id_face_1;
+            y_periodic_2_temp = this->all_param.flow_solver_param.y_periodic_id_face_2;
+        }
 
-		return caradonna_tung_mesh->triangulation;
+        if (periodic_z) {
+            z_periodic_1_temp = this->all_param.flow_solver_param.z_periodic_id_face_1;
+            z_periodic_2_temp = this->all_param.flow_solver_param.z_periodic_id_face_2;
+        }
+
+        // Assign periodic BC
+        const int x_periodic_1 = x_periodic_1_temp; 
+        const int x_periodic_2 = x_periodic_2_temp;
+        const int y_periodic_1 = y_periodic_1_temp; 
+        const int y_periodic_2 = y_periodic_2_temp;
+        const int z_periodic_1 = z_periodic_1_temp; 
+        const int z_periodic_2 = z_periodic_2_temp;
+
+        caradonna_tung_mesh = read_gmsh<dim, dim> (mesh_filename, 
+                                            periodic_x, periodic_y, periodic_z,
+                                            x_periodic_1, x_periodic_2, 
+                                            y_periodic_1, y_periodic_2, 
+                                            z_periodic_1, z_periodic_2, 
+                                            mesh_reader_verbose_output,
+                                            this->all_param.do_renumber_dofs,
+                                            grid_degree, use_mesh_smoothing);
+    } else {
+        caradonna_tung_mesh = read_gmsh<dim, dim> (mesh_filename, this->all_param.do_renumber_dofs, grid_degree, use_mesh_smoothing);
     }
+
+
+	return caradonna_tung_mesh->triangulation;
 
     // TO DO: Avoid reading the mesh twice (here and in set_high_order_grid -- need a default dummy triangulation)
 }
@@ -250,7 +236,7 @@ void CaradonnaTung<dim, nstate>::compute_unsteady_data_and_write_to_table(
     }
 }
 
-#if PHILIP_DIM!=1
+#if PHILIP_DIM==3
     template class CaradonnaTung<PHILIP_DIM,PHILIP_DIM+2>;
 #endif
 

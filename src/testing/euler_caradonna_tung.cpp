@@ -31,6 +31,5 @@ int CaradonnaTung<dim,nstate>
 #if PHILIP_DIM==3
     template class CaradonnaTung <PHILIP_DIM,PHILIP_DIM+2>;
 #endif
-
 } // Tests namespace
 } // PHiLiP namespace
