@@ -102,10 +102,6 @@ public:
         const bool                                                has_nonzero_physical_source = false,
 		const double                                              rot_frequency = 0.0);
 
-    /// Destructor
-    // virtual ~Euler() =0;
-    ~Euler() {};
-
     const double ref_length; ///< Reference length.
     const double gam; ///< Constant heat capacity ratio of fluid.
     const double gamm1; ///< Constant heat capacity ratio (Gamma-1.0) used often.
@@ -149,7 +145,7 @@ public:
 
     /// Convective flux: \f$ \mathbf{F}_{conv} \f$
     std::array<dealii::Tensor<1,dim,real>,nstate> convective_flux (
-        const std::array<real,nstate> &conservative_soln) const;
+        const std::array<real,nstate> &conservative_soln) const override;
 
     /// Convective normal flux: \f$ \mathbf{F}_{conv} \cdot \hat{n} \f$
     std::array<real,nstate> convective_normal_flux (const std::array<real,nstate> &conservative_soln, const dealii::Tensor<1,dim,real> &normal) const;
@@ -162,10 +158,10 @@ public:
     /// Spectral radius of convective term Jacobian is 'c'
     std::array<real,nstate> convective_eigenvalues (
         const std::array<real,nstate> &/*conservative_soln*/,
-        const dealii::Tensor<1,dim,real> &/*normal*/) const;
+        const dealii::Tensor<1,dim,real> &/*normal*/) const override;
 
     /// Maximum convective eigenvalue
-    real max_convective_eigenvalue (const std::array<real,nstate> &soln) const;
+    real max_convective_eigenvalue (const std::array<real,nstate> &soln) const override;
 
     /// Maximum convective normal eigenvalue (used in Lax-Friedrichs)
     /** See the book I do like CFD, equation 3.6.18 */
@@ -174,7 +170,7 @@ public:
         const dealii::Tensor<1,dim,real> &normal) const override;
 
     /// Maximum viscous eigenvalue.
-    real max_viscous_eigenvalue (const std::array<real,nstate> &soln) const;
+    real max_viscous_eigenvalue (const std::array<real,nstate> &soln) const override;
 
     /// Dissipative flux: 0
     std::array<dealii::Tensor<1,dim,real>,nstate> dissipative_flux (

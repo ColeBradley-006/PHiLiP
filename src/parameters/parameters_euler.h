@@ -18,8 +18,6 @@ public:
     double side_slip_angle;
 	double rot_frequency; ///< Rotational Frequency input in rotations/s.
 
-    EulerParam (); ///< Constructor
-
     /// Declares the possible variables and sets the defaults.
     static void declare_parameters (dealii::ParameterHandler &prm);
     /// Parses input file and sets the variables.
