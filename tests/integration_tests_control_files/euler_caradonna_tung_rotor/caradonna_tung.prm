@@ -16,13 +16,13 @@ set solution_vtk_files_directory_name = ../../../test_runs/solution_files
 set output_high_order_grid = false
 set enable_higher_order_vtk_output = false
 
-# ODE solver
 
+# ODE solver
 subsection ODE solver
   set ode_output = quiet
   set ode_solver_type = runge_kutta
   set output_solution_every_x_steps = 1
-  set initial_time_step = 0.5
+  set initial_time_step = 0.001
   set runge_kutta_method = ssprk3_ex
 end
 
@@ -45,11 +45,17 @@ subsection flow_solver
   set flow_case_type = caradonna_tung
   set steady_state = false
   set poly_degree = 1
-  set final_time = 1.0
+  set final_time = 1
   # set courant_friedrichs_lewy_number = 0.01
-  set unsteady_data_table_filename = caradonna_tung_unsteady_data_table
+  set unsteady_data_table_filename = caradonna_unsteady_data_table
   subsection grid
-    set input_mesh_filename = ../../../test_runs/test_meshes/naca0012_3D
-    set grid_degree = 2
+    set input_mesh_filename = ../../../test_runs/test_meshes/naca0012_3D_Cole
+    subsection gmsh_boundary_IDs
+      set use_periodic_BC_in_x = false
+      set use_periodic_BC_in_y = false
+      set use_periodic_BC_in_z = true
+      set z_periodic_id_face_1 = 2005
+      set z_periodic_id_face_2 = 2006
+    end
   end
 end

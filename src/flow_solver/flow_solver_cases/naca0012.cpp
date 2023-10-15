@@ -67,7 +67,7 @@ std::shared_ptr<Triangulation> NACA0012<dim,nstate>::generate_grid() const
 
         const std::string mesh_filename = this->all_param.flow_solver_param.input_mesh_filename+std::string(".msh");
         const bool use_mesh_smoothing = false;
-        const unsigned int grid_degree = 0;
+        const unsigned int grid_degree = this->all_param.flow_solver_param.grid_degree;
         // const unsigned int grid_degree = this->all_param.flow_solver_param.grid_degree;
 
         // Check if periodic BC exist
@@ -133,7 +133,7 @@ void NACA0012<dim,nstate>::set_higher_order_grid(std::shared_ptr<DGBase<dim, dou
     std::shared_ptr<HighOrderGrid<dim,double>> naca0012_mesh = nullptr;
 	const std::string mesh_filename = this->all_param.flow_solver_param.input_mesh_filename+std::string(".msh");
     const bool use_mesh_smoothing = false;
-	const unsigned int grid_degree = 0;
+	const unsigned int grid_degree = this->all_param.flow_solver_param.grid_degree;
     // const unsigned int grid_degree = this->all_param.flow_solver_param.grid_degree;
 
     // Check if periodic BC exist
