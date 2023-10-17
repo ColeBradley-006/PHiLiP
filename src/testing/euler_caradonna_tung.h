@@ -4,7 +4,7 @@
 #include <deal.II/grid/manifold_lib.h>
 
 #include "tests.h"
-#include "dg/dg.h"
+#include "dg/dg_base.hpp"
 #include "physics/physics.h"
 #include "parameters/all_parameters.h"
 

@@ -10,7 +10,7 @@
 #include <deal.II/numerics/vector_tools.h>
 #include <deal.II/fe/fe_values.h>
 #include "physics/physics_factory.h"
-#include "dg/dg.h"
+#include "dg/dg_base.hpp"
 #include <deal.II/base/table_handler.h>
 #include "mesh/grids/naca_airfoil_grid.hpp"  // Need to put the correct grid here  
 #include "mesh/gmsh_reader.hpp"
