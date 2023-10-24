@@ -107,6 +107,6 @@ subsection flow_solver
   set steady_state = true
   set steady_state_polynomial_ramping = true
   subsection grid
-    set input_mesh_filename = ../../../../test_runs/test_meshes/naca0012_2D
+    set input_mesh_filename = ../../../../runs/meshes/naca0012_2D
   end
 end

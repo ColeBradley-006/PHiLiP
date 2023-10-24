@@ -49,6 +49,6 @@ subsection flow_solver
   # set courant_friedrichs_lewy_number = 0.01
   set unsteady_data_table_filename = caradonna_unsteady_data_table
   subsection grid
-    set input_mesh_filename = ../../../test_runs/test_meshes/caradonnaFinite
+    set input_mesh_filename = ../../../runs/meshes/caradonnaFinite
   end
 end

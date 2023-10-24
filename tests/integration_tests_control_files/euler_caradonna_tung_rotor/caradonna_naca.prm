@@ -104,7 +104,7 @@ subsection flow_solver
   set steady_state = true
   set steady_state_polynomial_ramping = true
   subsection grid
-    set input_mesh_filename = ../../../test_runs/test_meshes/naca0012_3D_Cole
+    set input_mesh_filename = ../../../runs/meshes/naca0012_3D_Cole
     subsection gmsh_boundary_IDs
       set use_periodic_BC_in_x = false
       set use_periodic_BC_in_y = false
