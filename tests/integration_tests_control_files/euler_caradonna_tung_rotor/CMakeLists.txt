@@ -13,3 +13,11 @@ add_test(
 	COMMAND mpirun -np ${MPIMAX} ${EXECUTABLE_OUTPUT_PATH}/PHiLiP_3D -i ${CMAKE_CURRENT_BINARY_DIR}/caradonna_naca.prm
 	WORKING_DIRECTORY ${TEST_OUTPUT_DIR}
 )
+
+configure_file(caradonna_naca2D.prm caradonna_naca2D.prm COPYONLY)
+add_test(
+	NAME 2D_EULER_CARADONNA_NACA
+	COMMAND mpirun -np ${MPIMAX} ${EXECUTABLE_OUTPUT_PATH}/PHiLiP_2D -i ${CMAKE_CURRENT_BINARY_DIR}/caradonna_naca2D.prm
+	WORKING_DIRECTORY ${TEST_OUTPUT_DIR}
+)
+

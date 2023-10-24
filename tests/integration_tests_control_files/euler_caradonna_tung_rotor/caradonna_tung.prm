@@ -49,13 +49,6 @@ subsection flow_solver
   # set courant_friedrichs_lewy_number = 0.01
   set unsteady_data_table_filename = caradonna_unsteady_data_table
   subsection grid
-    set input_mesh_filename = ../../../test_runs/test_meshes/naca0012_3D_Cole
-    subsection gmsh_boundary_IDs
-      set use_periodic_BC_in_x = false
-      set use_periodic_BC_in_y = false
-      set use_periodic_BC_in_z = true
-      set z_periodic_id_face_1 = 2005
-      set z_periodic_id_face_2 = 2006
-    end
+    set input_mesh_filename = ../../../test_runs/test_meshes/caradonnaFinite
   end
 end
