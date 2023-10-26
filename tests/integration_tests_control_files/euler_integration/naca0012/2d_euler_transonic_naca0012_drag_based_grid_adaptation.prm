@@ -12,6 +12,8 @@ set use_split_form = false
 
 set overintegration = 0
 
+set output_high_order_grid = true
+set enable_higher_order_vtk_output = true
 set output_face_results_vtk = true
 
 subsection euler
@@ -22,7 +24,7 @@ end
 
 subsection mesh adaptation
     set mesh_adaptation_type = h_adaptation
-    set use_goal_oriented_mesh_adaptation = true
+    set use_goal_oriented_mesh_adaptation = false
     set total_mesh_adaptation_cycles = 2
     subsection fixed-fraction
       set refine_fraction = 0.05

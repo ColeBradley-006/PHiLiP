@@ -2,29 +2,34 @@
 # ---------------------
 # Number of dimensions
 
-set dimension = 2
 set test_type = caradonna_tung
+
+# Number of dimensions
+set dimension = 3
 
 # The PDE we want to solve. Choices are
 # <advection|diffusion|convection_diffusion>.
 set pde_type  = euler
 
-#set conv_num_flux = lax_friedrichs #roe
 set conv_num_flux = roe
-
-#set use_split_form = false
-
-#set add_artificial_dissipation = true
-#set add_artificial_dissipation = false
-set overintegration = 0
-
+set diss_num_flux = bassi_rebay_2
 #set sipg_penalty_factor = 20
+
+set use_split_form = false
+
+subsection artificial dissipation
+  set add_artificial_dissipation = true
+end
+
+set overintegration = 0
 set output_face_results_vtk = true
+set output_high_order_grid = false
+set enable_higher_order_vtk_output = true
 
 subsection euler
   set reference_length = 1.0
-  set mach_infinity = 0.50
-  set angle_of_attack = 2.0
+  set mach_infinity = 0.80
+  set angle_of_attack = 1.25
 end
 
 subsection linear solver
@@ -65,7 +70,7 @@ subsection ODE solver
   set nonlinear_max_iterations            = 2000
 
   # Nonlinear solver residual tolerance
-  set nonlinear_steady_residual_tolerance = 1e-14
+  set nonlinear_steady_residual_tolerance = 1e-15
 
   # Explicit or implicit solverChoices are <explicit|implicit>.
   set ode_solver_type  = implicit
@@ -90,7 +95,7 @@ subsection manufactured solution convergence study
   # Starting degree for convergence study
   set degree_start      = 3
 
-  set grid_progression  = 1
+  set grid_progression  = 2
 
   set grid_progression_add  = 0
 
@@ -101,12 +106,11 @@ subsection manufactured solution convergence study
   set number_of_grids   = 1
 end
 
-
 subsection flow_solver
   set flow_case_type = caradonna_tung
   set steady_state = true
   set steady_state_polynomial_ramping = true
   subsection grid
-    set input_mesh_filename = ../../../tests/meshes/naca0012_hopw_ref2
+    set input_mesh_filename = ../../../runs/meshes/caradonnaSpan
   end
 end
