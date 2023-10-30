@@ -7,7 +7,10 @@ set dimension = 2
 # <advection|diffusion|convection_diffusion>.
 set pde_type  = advection      
 set test_type = dual_weighted_residual_mesh_adaptation
-set output_high_order_grid = false
+
+set output_high_order_grid = true
+set enable_higher_order_vtk_output = true
+set output_face_results_vtk = true
 
 set sipg_penalty_factor = 20.0
 
