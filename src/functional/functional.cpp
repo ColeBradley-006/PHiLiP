@@ -21,6 +21,8 @@
 #include "physics/model_factory.h"
 #include "physics/physics.h"
 #include "physics/physics_factory.h"
+#include "entropy_adjoint.hpp"
+
 
 /// Returns y = Ax.
 /** Had to rewrite this instead of 
@@ -1326,6 +1328,12 @@ FunctionalFactory<dim,nstate,real,MeshType>::create_Functional(
     }else if(functional_type == FunctionalTypeEnum::outlet_pressure_integral) {
         if constexpr (dim==2 && nstate==dim+2){
             return std::make_shared<OutletPressureIntegral<dim,nstate,real,MeshType>>(dg, true,false);
+        }
+    }else if(functional_type == FunctionalTypeEnum::entropy) {
+        if constexpr (dim!=1 && 
+                      nstate==dim+2 && 
+                      std::is_same<MeshType, dealii::parallel::distributed::Triangulation<dim>>::value){
+            return std::make_shared<EntropyFunctional<dim,nstate,real,MeshType>>(dg);
         }
     }else{
         std::cout << "Invalid Functional." << std::endl;

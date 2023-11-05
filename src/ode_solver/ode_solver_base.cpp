@@ -111,7 +111,7 @@ int ODESolverBase<dim,real,MeshType>::steady_state ()
     if (ode_param.output_solution_every_x_steps >= 0) this->dg->output_results_vtk(this->current_iteration);
 
     pcout << " Evaluating right-hand side and setting system_matrix to Jacobian before starting iterations... " << std::endl;
-    this->dg->assemble_residual ();
+    this->dg->assemble_residual (); //Error Happening here
     initial_residual_norm = this->dg->get_residual_l2norm();
     this->residual_norm = initial_residual_norm;
     pcout << " ********************************************************** "

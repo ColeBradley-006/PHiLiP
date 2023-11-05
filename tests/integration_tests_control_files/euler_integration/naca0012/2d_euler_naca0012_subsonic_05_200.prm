@@ -25,7 +25,7 @@ set output_face_results_vtk = true
 subsection euler
   set reference_length = 1.0
   set mach_infinity = 0.50
-  set angle_of_attack = 2.0
+  set angle_of_attack = 1.25
 end
 
 subsection linear solver

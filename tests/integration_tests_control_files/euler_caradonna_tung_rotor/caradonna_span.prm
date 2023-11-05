@@ -12,7 +12,6 @@ set dimension = 3
 set pde_type  = euler
 
 set conv_num_flux = roe
-set diss_num_flux = bassi_rebay_2
 #set sipg_penalty_factor = 20
 
 set use_split_form = false
