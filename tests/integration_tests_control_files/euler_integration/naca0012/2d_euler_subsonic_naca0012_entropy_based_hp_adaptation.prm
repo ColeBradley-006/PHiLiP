@@ -33,7 +33,7 @@ end
 
 subsection functional
   # functional choice
-  set functional_type = entropy
+  set functional_type = lift
 end
 
 subsection linear solver

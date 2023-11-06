@@ -17,6 +17,8 @@ real EntropyFunctional<dim,nstate,real,MeshType>
                       const bool compute_d2I)
 {
     double value = Functional<dim,nstate,real,MeshType>::evaluate_functional(compute_dIdW, compute_dIdX, compute_d2I);
+    this->pcout << "Entropy value: " << value << "\n";
+
     return value;
 }
 

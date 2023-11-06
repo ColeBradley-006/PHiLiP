@@ -186,6 +186,13 @@ add_test(
   WORKING_DIRECTORY ${TEST_OUTPUT_DIR}
 )
 
+configure_file(2d_sshock_entropy_adaptation.prm 2d_sshock_entropy_adaptation.prm  COPYONLY)
+add_test(
+  NAME MPI_2D_DUAL_WEIGHTED_RESIDUAL_SSHOCK_ENTROPY_ADAPTATION
+  COMMAND mpirun -n ${MPIMAX} ${EXECUTABLE_OUTPUT_PATH}/PHiLiP_2D -i ${CMAKE_CURRENT_BINARY_DIR}/2d_sshock_entropy_adaptation.prm 
+  WORKING_DIRECTORY ${TEST_OUTPUT_DIR}
+)
+
 # Anisotropic mesh adaptation tests
 configure_file(anisotropic_mesh_adaptation_sshock.prm anisotropic_mesh_adaptation_sshock.prm  COPYONLY)
 add_test(
