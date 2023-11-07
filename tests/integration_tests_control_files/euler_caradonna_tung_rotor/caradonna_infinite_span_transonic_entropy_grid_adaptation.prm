@@ -2,7 +2,7 @@
 # ---------------------
 
 set run_type = flow_simulation
-set dimension = 2
+set dimension = 3
 set pde_type  = euler
 
 set conv_num_flux = roe
@@ -10,30 +10,31 @@ set diss_num_flux = bassi_rebay_2
 
 set use_split_form = false
 
-set overintegration = 10
+set overintegration = 0
 
+set output_high_order_grid = true
+set enable_higher_order_vtk_output = true
 set output_face_results_vtk = true
 
 subsection euler
   set reference_length = 1.0
-  set mach_infinity = 0.50
-  set angle_of_attack = 2.0
+  set mach_infinity = 0.80
+  set angle_of_attack = 1.25
 end
 
 subsection mesh adaptation
-    set mesh_adaptation_type = hp_adaptation
-    set use_goal_oriented_mesh_adaptation = true
-    set total_mesh_adaptation_cycles = 3
+    set mesh_adaptation_type = h_adaptation
+    set use_goal_oriented_mesh_adaptation = false
+    set total_mesh_adaptation_cycles = 2
     subsection fixed-fraction
       set refine_fraction = 0.05
-      set h_coarsen_fraction = 0.0
-      set hp_smoothness_tolerance = 1.0e-6
+      set h_coarsen_fraction = 0.025
     end
 end
 
 subsection functional
   # functional choice
-  set functional_type = lift
+  set functional_type = entropy
 end
 
 subsection linear solver
@@ -75,13 +76,19 @@ subsection grid refinement study
 end
 
 subsection flow_solver
-  set flow_case_type = naca0012
+  set flow_case_type = caradonna_tung
   set poly_degree = 1
-  set max_poly_degree_for_adaptation = 5
+  set max_poly_degree_for_adaptation = 2
   set steady_state = true
   set steady_state_polynomial_ramping = true
   subsection grid
     set input_mesh_filename = ../../../meshes/naca0012_hopw_ref1
+    subsection gmsh_boundary_IDs
+      set use_periodic_BC_in_x = false
+      set use_periodic_BC_in_y = false
+      set use_periodic_BC_in_z = true
+      set z_periodic_id_face_1 = 2005
+      set z_periodic_id_face_2 = 2006
+    end
   end
 end
-

@@ -2,7 +2,7 @@
 # ---------------------
 
 set run_type = flow_simulation
-set dimension = 2
+set dimension = 3
 set pde_type  = euler
 
 set conv_num_flux = roe
@@ -33,7 +33,7 @@ end
 
 subsection functional
   # functional choice
-  set functional_type = lift
+  set functional_type = entropy
 end
 
 subsection linear solver
@@ -75,7 +75,7 @@ subsection grid refinement study
 end
 
 subsection flow_solver
-  set flow_case_type = naca0012
+  set flow_case_type = caradonna_tung
   set poly_degree = 1
   set max_poly_degree_for_adaptation = 5
   set steady_state = true
@@ -84,4 +84,3 @@ subsection flow_solver
     set input_mesh_filename = ../../../meshes/naca0012_hopw_ref1
   end
 end
-

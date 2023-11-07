@@ -28,7 +28,7 @@ public:
     /// Parameter handler for storing the .prm file being ran
     const dealii::ParameterHandler &parameter_handler;
 
-    /// Grid convergence on Euler Gaussian Bump
+    /// Grid convergence on Euler Caradonna Tung
     /** Will run the a grid convergence test for various p
      *  on multiple grids to determine the order of convergence.
      *
